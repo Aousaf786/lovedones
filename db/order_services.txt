@@ -1,0 +1,12 @@
+CREATE TABLE order_services (
+    id BigInt(20) NOT NULL AUTO_INCREMENT,
+    order_id BigInt(20) NOT NULL,
+    service_id BigInt(20) NOT NULL,
+    name varchar(255) NOT NULL,
+    price DOUBLE(11, 2) NOT NULL,
+    quantity int(11) DEFAULT '1',
+    payable_amount DOUBLE(11, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID)
+);

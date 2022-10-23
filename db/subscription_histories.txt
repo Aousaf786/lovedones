@@ -1,0 +1,15 @@
+CREATE TABLE subscription_histories (
+    id BigInt(20) NOT NULL AUTO_INCREMENT,
+    user_id BigInt(20) NOT NULL,
+    order_id varchar(255) NOT NULL,
+    platform varchar(50) NOT NULL,
+    product_id varchar(255) NOT NULL,
+    purchase_token TEXT NOT NULL,
+    purchase_expiry_date TIMESTAMP,
+    purchase_price DOUBLE(11, 2) NOT NULL,
+    status tinyint(1) DEFAULT '1',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID),
+    CONSTRAINT subscription_histories_user_id_foreign FOREIGN KEY (user_id) REFERENCES users(id)
+);

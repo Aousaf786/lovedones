@@ -1,0 +1,111 @@
+<%- include('../partials/head')  %>
+
+</head>
+
+<body >
+    <%- include('../partials/header') %>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3><i class="fa fa-cubes"></i> Service Detail</h3>
+                </div>
+                <div class="card-body">
+                    <form id="editServiceForm" method="post">
+                        <input type="hidden" name="service_id" value="<%- record.id %>">
+                        <div class="row">
+                            <div class="col-lg-12 col-xl-12">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Name (required)</label>
+                                            <input class="form-control" name="name" type="text" value="<%- record.name %>" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Price (required)</label>
+                                            <input class="form-control" name="price" type="number" value="<%- record.price %>" min="0.5" step="0.5" required />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label>Status</label>
+                                        <select class="form-control" name="status">
+                                            <option value="1" <%- (record.status == "1")? "selected":"" %>>Active</option>
+                                            <option value="0" <%- (record.status == "0")? "selected":"" %>>Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea class="form-control" name="description"><%- record.description %></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 mb-3">
+                                        <label>Image (Maximum file size limit is 1MB)</label>
+                                        <%
+                                            let filePath = "/admin-assets/images/no-image.jpg";
+                                            if(record.cover_img){
+                                                filePath = "/storage/services/"+record.cover_img;
+                                            }
+                                        %>
+                                        <img src="<%- filePath %>" alt="preview" class="mb-1" id="previewImg" style="max-height: 150px;">
+                                        <div class="input-group">
+                                            <div class="form-file">
+                                                <input type="file" name="cover_img" class="form-file-input form-control previewInput" data-target="#previewImg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-primary">Update Service</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- end card-body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+
+    <%- include('../partials/footer') %>
+
+    <%- include('../partials/defaultJs') %>
+
+    <script>
+        $(document).ready(function() {
+
+            // update edit service form submit
+            $("#editServiceForm").submit(function(e) {
+                e.preventDefault();
+                let data = new FormData($(this)[0]);
+                axios.put('/admin/services/update-service', data)
+                    .then(function(response) {
+                        successMsg(response.data.message);
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1000)
+                    })
+                    .catch(function(error) {
+
+                    });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

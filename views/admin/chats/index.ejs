@@ -1,0 +1,61 @@
+<%- include('../partials/head')  %>
+
+<link rel="stylesheet" href="/admin-assets/twilio-assets/twiliochat.css">
+
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Recent</h4>
+                    </div>
+                    <!--<div class="srch_bar">
+                        <div class="stylish-input-group">
+                            <input type="text" class="search-bar" placeholder="Search">
+                            <span class="input-group-addon">
+                                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                            </span>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="inbox_chat" id="channel-list">
+                    <h3>Loading..</h3>
+                </div>
+            </div>
+            <div class="mesgs">
+                <div class="msg_history" id="message-list">
+                    <h2>You are not currently viewing a Channel.</h2>
+                </div>
+                <div class="type_msg" id="typing-row" style="display: none;">
+                    <div class="input_msg_write">
+                        <input type="text" class="write_msg" id="input-text" placeholder="Type a message" />
+                        <button class="msg_send_btn" type="button" id="sendMsgBtn"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    </div>
+                    <p id="typing-placeholder"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+
+    <%- include('../partials/defaultJs') %>
+    <script>
+        if($(window).width() >= 1200){
+            $(".hamburger").trigger("click");
+        }
+    </script>
+    <script src="https://media.twiliocdn.com/sdk/js/chat/v5.0/twilio-chat.min.js"></script>
+
+    <script src="/admin-assets/vendor/moment/moment.min.js"></script>
+    <script src="/admin-assets/twilio-assets/jquery-throttle.min.js"></script>
+    <script src="/admin-assets/twilio-assets/twiliochat.js"></script>
+
+</body>
+
+</html>

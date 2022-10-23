@@ -1,0 +1,91 @@
+<%- include('../partials/head')  %>
+
+    </head>
+
+    <body>
+
+        <div class="authincation h-100 mt-3">
+            <div class="container h-100">
+                <div class="row justify-content-center h-100 align-items-center">
+                    <div class="col-md-6">
+                        <span class="deznav-scroll"></span>
+                        <h1 class="mb-3 text-center"><img src="/admin-assets/images/main-logo.png" alt="logo" style="height: 150px;"></h1>
+                        <div class="authincation-content">
+                            <div class="row no-gutters">
+                                <div class="col-xl-12">
+                                    <div class="auth-form">
+                                        <h4 class="text-center mb-4">Sign in your account</h4>
+                                        <form id="loginForm" role="form" method="post" action="#">
+                                            <div class="form-group">
+                                                <label class="mb-1"><strong>Email</strong></label>
+                                                <input type="email" class="form-control" value="" name="email" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="mb-1"><strong>Password</strong></label>
+                                                <input type="password" class="form-control" value="" name="password" required>
+                                            </div>
+                                            <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox ml-1">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox_remember">
+                                                        <label class="custom-control-label" for="checkbox_remember">Remember my preference</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../partials/defaultJs') %>
+
+        <script>
+            $(document).ready(function () {
+                // remember me check from browser cookies
+                checkRememberTrue();
+
+                // login form submit
+                $("#loginForm").submit(function (e) {
+                    e.preventDefault();
+                    if($("#checkbox_remember"). prop("checked") == true){
+                        createCookie("rememmberMeUserEmail",$("[name=email]").val(),7);
+                        createCookie("rememmberMeUserPassword",btoa($("[name=password]").val()),7);
+                    } else {
+                        eraseCookie('rememmberMeUserEmail');
+                        eraseCookie('rememmberMeUserPassword');
+                    }
+                    let data = $(this).serialize();
+                    axios.post('/admin/login', data)
+                    .then(function(response) {
+                        successMsg(response.data.message);
+                        setTimeout(function() {
+                            location.href = "/admin";
+                        }, 1000);
+                    })
+                    .catch(function(error) {
+
+                    });
+                });
+            });
+
+            // check cookies
+            function checkRememberTrue(){
+                if($.trim(readCookie("rememmberMeUserEmail")) != 'null' && $.trim(readCookie("rememmberMeUserEmail")) != '' && $.trim(readCookie("rememmberMeUserPassword")) != 'null' && $.trim(readCookie("rememmberMeUserPassword")) != '' ){
+                    $("[name=email]").val(readCookie("rememmberMeUserEmail"));
+                    $("[name=password]").val(atob(readCookie("rememmberMeUserPassword")));
+                    $('#checkbox_remember').attr('checked','checked');
+                }
+            }
+        </script>
+
+    </body>
+
+    </html>
