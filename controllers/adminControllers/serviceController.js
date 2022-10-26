@@ -33,7 +33,7 @@ exports.addServicePage = (req, res) => {
 }
 
 exports.addServiceRequest = (req, res) => {
-    let reqData = req.body;
+    let reqData = {...req.params, ...req.body, ...req.files};
     let rules = {
         name: 'required',
         price: 'required',

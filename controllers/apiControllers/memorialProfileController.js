@@ -1,6 +1,6 @@
 const Validator = require('validatorjs');
 const dbObj = require("../../includes/connection");
-const { returnApiJson } = require('../../includes/functions');
+const { returnApiJson, randomNumber } = require('../../includes/functions');
 
 memorialProObj = (record, imgArr) => {
     record.profile_image = "";
@@ -101,7 +101,7 @@ memorialProDataStructure = (data) => {
 }
 
 exports.addMemorialProfile = (req, res) => {
-    let reqData = req.body;
+    let reqData = {...req.params, ...req.body, ...req.files};
     let rules = {
         relation:"required|in:Dad,Mother",
         first_name: 'required',
@@ -111,9 +111,9 @@ exports.addMemorialProfile = (req, res) => {
         death_date: 'required',
         cemetery_country: 'required',
         cemetery_state: 'required',
-        images: 'required|array',
+        // images: 'required|array',
       };
-    let validation = new Validator({...reqData, images:JSON.parse(reqData.images)}, rules);
+    let validation = new Validator(reqData, rules);
     if(validation.fails()){
         returnApiJson(res, 2, "Validation errors", null, validation.errors.all());
     } else {
@@ -133,11 +133,21 @@ exports.addMemorialProfile = (req, res) => {
             if (insertData.response) {
                 let insertId = insertData.lastInsertId;
                 let imgCount = 1;
-                JSON.parse(reqData.images).forEach(element => {
+                /** Image Upload */
+                let reqFile = req.files;
+                let storagePath, imgExt, fileName = null;
+                [reqFile.images].forEach(element => {
                     let makeProImg = 0;
                     if(imgCount == 1){
                         makeProImg = 1;
                         imgCount++;
+                    }
+                    if (reqFile && Object.keys(reqFile).length > 0) {
+                        storagePath = storageBasePath + "/memorial_profile/";
+                        imgExt = reqFile.images.name.split('.').pop().toLowerCase();
+                        fileName = "memorial_profile-" + Date.now() + randomNumber(1, 100000) + "." + imgExt;
+                        // save image on server
+                        reqFile.images.mv(storagePath + '/' + fileName);
                     }
                     dbObj.insert("memorial_profile_images", { "memorial_profile_id": insertId, "img": element, "profile_img": makeProImg });
                 });
