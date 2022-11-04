@@ -1,0 +1,91 @@
+<%- include('../partials/head')  %>
+<!-- Datatable -->
+<link rel="stylesheet" href="/admin-assets/vendor/datatables/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"><%= sectionTitle %></h4>
+                    <span class="pull-right"><a href="/admin/services/add-service" class="btn btn-primary btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add new service</a></span>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatable" class="display" style="min-width: 845px">
+                            <thead>
+                            <tr>
+                                <th>Sr</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Created At</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <% for(var i=0; i < records.length; i++) { %>
+                                    <tr>
+                                        <td>
+                                            <%= i+1 %>
+                                        </td>
+                                        <td>
+                                            <%= records[i].name %>
+                                        </td>
+                                        <td>
+                                            <%= records[i].price %>
+                                        </td>
+                                        <td>
+                                            <%- (records[i].status == 1)? '<span class="badge light badge-success">Active</span>': '<span class="badge light badge-warning">Inactive</span>' %>
+                                        </td>
+                                        <td>
+                                            <%= moment(records[i].created_at).format(DATE_FORMAT) %>
+                                        </td>
+                                        <td>
+                                            <a href="/admin/services/edit-service/<%= records[i].id %>" class="btn btn-primary btn-sm">Edit</a>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+
+    <%- include('../partials/defaultJs') %>
+
+    <!-- Datatable -->
+    <script src="/admin-assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script>
+
+        $(document).ready(function() {
+
+            $('#datatable').DataTable({
+                columns: [
+                    null,
+                    null,
+                    null,
+                    null,
+                    {
+                        orderable: false,
+                        searchable: false
+                    }, {
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+CREATE TABLE diaries (
+    id BigInt(20) NOT NULL AUTO_INCREMENT,
+    user_id BigInt(20) NOT NULL,
+    daily_affirmation TEXT,
+    critical_tasks TEXT,
+    notes TEXT,
+    today_wins TEXT,
+    to_improve TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID),
+    CONSTRAINT diaries_user_id_foreign FOREIGN KEY (user_id) REFERENCES users(id)
+);

@@ -1,0 +1,139 @@
+<%- include('../partials/head')  %>
+<!-- Datatable -->
+<link rel="stylesheet" href="/admin-assets/vendor/datatables/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+
+    <div class="form-head d-flex mb-3 align-items-start">
+        <div class="mr-auto d-none d-lg-block">
+            <p class="mb-4">Welcome <%- adminSession.name %>,</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <!--<div class="col-xl-4 col-lg-4 col-sm-4">
+            <div class="widget-stat card bg-danger">
+                <div class="card-body  p-4">
+                    <div class="media">
+                        <span class="mr-3">
+                            <i class="flaticon-381-user-2"></i>
+                        </span>
+                        <div class="media-body text-white text-right">
+                            <p class="mb-1">Total Employees</p>
+                            <h3 class="text-white"><%= currencyFormat(totalEmployees) %></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="col-xl-4 col-lg-4 col-sm-4">
+            <div class="widget-stat card bg-success">
+                <div class="card-body p-4">
+                    <div class="media">
+                        <span class="mr-3">
+                            <i class="flaticon-381-user-1"></i>
+                        </span>
+                        <div class="media-body text-white text-right">
+                            <p class="mb-1">Total Users</p>
+                            <h3 class="text-white"><%= currencyFormat(totalUsers) %></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-sm-4">
+            <div class="widget-stat card bg-warning">
+                <div class="card-body p-4">
+                    <div class="media">
+                        <span class="mr-3">
+                            <i class="flaticon-381-gift"></i>
+                        </span>
+                        <div class="media-body text-white text-right">
+                            <p class="mb-1">Pending Orders</p>
+                            <h3 class="text-white"><%= currencyFormat(pendingOrders) %></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-sm-4">
+            <div class="widget-stat card bg-danger">
+                <div class="card-body p-4">
+                    <div class="media">
+                        <span class="mr-3">
+                            <i class="flaticon-381-gift"></i>
+                        </span>
+                        <div class="media-body text-white text-right">
+                            <p class="mb-1">Cancel Orders</p>
+                            <h3 class="text-white"><%= currencyFormat(cancelOrders) %></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table id="datatable" class="display" style="min-width: 845px">
+                    <thead>
+                    <tr>
+                        <th>Sr</th>
+                        <th>Month With Year</th>
+                        <th>Total Orders</th>
+                        <th>Total Sale</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i < monthWiseOrderReportData.length; i++) { %>
+                            <tr>
+                                <td>
+                                    <%= i+1 %>
+                                </td>
+                                <td>
+                                    <%= monthWiseOrderReportData[i].monthYear %>
+                                </td>
+                                <td>
+                                    <%= currencyFormat(monthWiseOrderReportData[i].orderCount) %>
+                                </td>
+                                <td>
+                                    ₤<%= monthWiseOrderReportData[i].price %>
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <%- include('../partials/footer') %>
+
+    <%- include('../partials/defaultJs') %>
+
+    <!-- Datatable -->
+    <script src="/admin-assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script>
+
+        $(document).ready(function() {
+
+            $('#datatable').DataTable({
+                columns: [
+                    null,
+                    null,
+                    null,
+                    null,
+                ],
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
