@@ -19,6 +19,6 @@ CREATE TABLE users (
     PRIMARY KEY (ID)
 );
 
-INSERT INTO users (name, email, password, api_token, role) VALUES ("Admin", "admin@domain.com", "$2b$12$iH5vm4Lmcn6LVAthiX8a/ewc.Z4mYYAgM22eon2v5pR63jpf/vR1a", "SkHJdlYGORSBrVg48l5ZJ5223dfa", "Admin");
+INSERT INTO users (name, email, password, api_token, role) VALUES ("Admin", "admin@domain.com", "$2b$12$dStGj1JpKTArnUxjp8Xyp.ROSUtiQF7MhMB5uYmNhgFrdhTSNrqjO", "SkHJdlYGORSBrVg48l5ZJ5223dfa", "Admin");
 
 ALTER TABLE `users` ADD `subscription_package` VARCHAR(255) NULL DEFAULT NULL AFTER `family_subscription_status`;
