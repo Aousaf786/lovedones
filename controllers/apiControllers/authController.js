@@ -10,8 +10,8 @@ exports.signupRequest = (req, res) => {
         name: 'required',
         email: 'required|email',
         password: 'required|confirmed',
-        fcm_token: 'optional',
-        phone_number: 'required',
+        // fcm_token: 'optional',
+        // phone_number: 'required',
         //address: 'required',
       };
     let validation = new Validator(reqData, rules);
@@ -113,8 +113,7 @@ exports.forgotPassRequest = (req, res) => {
                         if (err) {
                             returnApiJson(res, 0, "Something error");
                         } else {
-                            sendEmailSendGrid("muhammadhaziq341@gmail.com", "Forgot password email", str);
-                            // sendEmailSendGrid(reqData.email, "Forgot password email", str);
+                            sendEmailSendGrid(reqData.email, "Forgot password email", str);
                             returnApiJson(res, 1, returnTxt);
                         }
                     });
