@@ -10,9 +10,6 @@ exports.signupRequest = (req, res) => {
         name: 'required',
         email: 'required|email',
         password: 'required|confirmed',
-        // fcm_token: 'optional',
-        // phone_number: 'required',
-        //address: 'required',
       };
     let validation = new Validator(reqData, rules);
     if(validation.fails()){
@@ -52,7 +49,6 @@ exports.loginRequest = (req, res) => {
     let rules = {
         email: 'required|email',
         password: 'required',
-        fcm_token: 'optional',
       };
     let validation = new Validator(reqData, rules);
     if(validation.fails()){
