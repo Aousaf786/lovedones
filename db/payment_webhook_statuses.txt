@@ -1,8 +1,0 @@
-CREATE TABLE payment_webhook_statuses (
-    id BigInt(20) NOT NULL AUTO_INCREMENT,
-    payment_id varchar(191) NOT NULL,
-    status varchar(191),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (ID)
-);
