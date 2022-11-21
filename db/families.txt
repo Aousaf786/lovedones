@@ -1,9 +1,0 @@
-CREATE TABLE families (
-    id BigInt(20) NOT NULL AUTO_INCREMENT,
-    user_id BigInt(20) NOT NULL,
-    email varchar(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (ID),
-    CONSTRAINT families_user_id_foreign FOREIGN KEY (user_id) REFERENCES users(id)
-);
